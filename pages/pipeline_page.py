@@ -6,7 +6,7 @@ from selenium.webdriver.common.by import By
 
 from pages.base_page import BasePage
 from pages.main_page import MainPage
-from tests.new_item.data import new_folder_name
+
 
 logger = logging.getLogger(__name__)
 
@@ -44,20 +44,9 @@ class PipelinePage(BasePage):
         self.wait_to_be_visible(self.Locators.SETTING_INPUT, timeout=10).click()
         return self
 
-    def choose_move_location(self):
-        self.wait_to_be_visible(self.get_value_name(new_folder_name)).click()
-        return self
-
     def click_submit_btn(self):
         self.wait_to_be_clickable(self.Locators.MOVE_BTN).click()
         return self
-
-    def move_item_to_folder(self):
-        self.click_move_link()
-        self.open_move_destination_list()
-        self.choose_move_location()
-        self.click_submit_btn()
-        return MainPage(self.driver)
 
     @allure.step("Get the page header text")
     def get_header_pipeline_page(self) -> str:
