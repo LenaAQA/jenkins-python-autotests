@@ -20,17 +20,6 @@ class MultiConfigProjectPage(BasePage):
         self.url = self.base_url + f"/job/{name}/"
         self.name = name
 
-    def get_saved_description_text(self):
-        return self.wait_to_be_visible(self.Locators.SAVED_DESCRIPTION).text
-
-    def edit_description(self, new_text):
-        self.click_on(self.Locators.EDIT_LINK)
-        input_field = self.wait_to_be_visible(self.Locators.DESCRIPTION_INPUT)
-        input_field.clear()
-        input_field.send_keys(new_text)
-        self.click_on(self.Locators.SUBMIT)
-        return self.wait_for_url()
-
     def get_text_warning_message(self):
         return self.get_visible_text_lines(self.Locators.WARNING_MESSAGE)[0]
 

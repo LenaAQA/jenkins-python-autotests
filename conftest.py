@@ -124,37 +124,3 @@ def new_item_page(main_page) -> NewItemPage:
 @pytest.fixture(scope="function")
 def manage_jenkins_page(main_page) -> ManageJenkinsPage:
     return main_page.go_to_manage_jenkins_page()
-
-
-@pytest.fixture(scope="function")
-def system_information_page(manage_jenkins_page) -> SystemInformationPage:
-    return manage_jenkins_page.go_to_system_information_page()
-
-
-@pytest.fixture(scope="function")
-def environment_variables_tab(system_information_page) -> SystemInformationPage:
-    system_information_page.click_on_environment_variables_tab()
-    return system_information_page
-
-
-@pytest.fixture(scope="function")
-def plugins_tab(system_information_page) -> SystemInformationPage:
-    system_information_page.click_on_plugins_tab()
-    return system_information_page
-
-
-@pytest.fixture(scope="function")
-def memory_usage_tab(system_information_page) -> SystemInformationPage:
-    system_information_page.click_on_memory_usage_tab()
-    return system_information_page
-
-
-@pytest.fixture(scope="function")
-def thread_dumps_tab(system_information_page) -> SystemInformationPage:
-    system_information_page.click_on_thread_dumps_tab()
-    return system_information_page
-
-
-@pytest.fixture(scope="function")
-def load_statistics_page(manage_jenkins_page) -> LoadStatisticsPage:
-    return manage_jenkins_page.go_to_load_statistics_page()

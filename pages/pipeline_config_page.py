@@ -40,17 +40,9 @@ class PipelineConfigPage(BasePage):
         self.scroll_and_click(self.Locators.TRIGGER_BUILD_AFTER_OTHER_PROJECTS_LABEL)
         return self
 
-    def wait_for_page(self):
-        return self.wait_for_element(self.Locators.GENERAL_BUTTON)
-
     def add_description(self, text_for_description):
         self.wait_for_element(self.Locators.DESCRIPTION_FIELD).send_keys(text_for_description)
         return self
-
-    def click_save_button(self, pipeline_project_name):
-        from pages.pipeline_page import PipelinePage
-        self.wait_to_be_clickable(self.Locators.SAVE_BUTTON).click()
-        return PipelinePage(self.driver, pipeline_project_name).wait_for_url()
 
     @allure.step("Scroll to the \"Build Triggers\" section title")
     def scroll_to_triggers_section(self) -> None:

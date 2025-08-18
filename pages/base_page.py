@@ -36,13 +36,3 @@ class BasePage(UIElementMixin):
     @allure.step("Get the current page title")
     def get_title(self) -> str:
         return self.driver.title
-
-    def get_current_window_handle(self):
-        return self.driver.current_window_handle
-
-    def get_all_windows_handles(self):
-        return self.driver.window_handles
-
-    def switch_to_window(self, handle):
-        self.driver.switch_to.window(handle)
-        return self.driver

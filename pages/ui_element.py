@@ -55,9 +55,6 @@ class UIElementMixin:
     def wait_text_to_be_present(self, locator, text, timeout=5) -> bool:
         return self._wait_for(timeout, EC.text_to_be_present_in_element, locator, text)
 
-    def wait_for_new_window(self, num_windows = 2):
-        return self.wait.until(EC.number_of_windows_to_be(num_windows))
-
     def wait_element_to_disappear(self, locator, timeout=10) -> bool:
         return self._wait_for(timeout, EC.invisibility_of_element_located, locator)
 
@@ -80,9 +77,6 @@ class UIElementMixin:
 
     def enter_text(self, locator, text) -> None:
         return self.wait_for_element(locator).send_keys(text)
-
-    def get_value(self, locator) -> str | None:
-        return self.wait_to_be_visible(locator).get_attribute("value")
 
     def wait_and_get_attribute(self, locator, attribute_name) -> str:
         return self.wait_to_be_visible(locator).get_attribute(attribute_name)
@@ -114,11 +108,6 @@ class UIElementMixin:
         )
         return element
 
-    def scroll_to_element(self, By, Selector):
-        actions = ActionChains(self.driver)
-        actions.move_to_element(self.find_element(By, Selector)).perform()
-        return self
-
     def navigate_to(self, page_class, *args):
         with allure.step(f"Navigate to \"{page_class.__name__}\""):
             self.logger.debug(f"Navigating to {page_class.__name__} with click on {args}")
@@ -134,19 +123,6 @@ class UIElementMixin:
             else:
                 return page_class(self.driver, args).wait_for_url()
 
-    def get_header_text(self, locator):
-        header = self.wait_to_be_visible(locator)
-        return header.text
-
-    def get_text(self, locator, timeout=10):
-        element = self.wait_for_element(locator, timeout)
-        return element.text
-
-    def check_checkbox(self, checkbox):
-        self.scroll_into_view(checkbox)
-        self.wait_to_be_clickable(checkbox).click()
-        return self
-
     def get_visible_text(self, locator) -> str:
         return self.wait_to_be_visible(locator).text.strip()
 
@@ -157,10 +133,6 @@ class UIElementMixin:
     def get_texts_with_scroll(self, locator) -> list[str]:
         elements = self.wait_for_elements(locator)
         return [self.wait_scroll_get_text(el) for el in elements]
-
-    def get_clean_texts_from_elements(self, locator) -> list[str]:
-        elements = self.wait_for_elements(locator)
-        return [self.get_clean_text_from_element_with_scroll(el) for el in elements]
 
     def get_visible_text_lines(self, locator) -> list[str]:
         return self.get_visible_text(locator).splitlines()

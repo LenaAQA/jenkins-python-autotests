@@ -18,20 +18,6 @@ class MultiConfigProjectConfigPage(BasePage):
         self.url = self.base_url + f"/job/{name}/configure"
         self.name = name
 
-    def set_description(self, text, name):
-        from pages.multi_config_project_page import MultiConfigProjectPage
-        self.wait_to_be_visible(self.Locators.DESCRIPTION).send_keys(text)
-        self.wait_to_be_clickable(self.Locators.SUBMIT).click()
-        return MultiConfigProjectPage(self.driver, name).wait_for_url()
-
-    def edit_description(self, new_text, name):
-        from pages.multi_config_project_page import MultiConfigProjectPage
-        input_field = self.wait_to_be_visible(self.Locators.DESCRIPTION)
-        input_field.clear()
-        input_field.send_keys(new_text)
-        self.wait_to_be_clickable(self.Locators.SUBMIT).click()
-        return MultiConfigProjectPage(self.driver, name).wait_for_url()
-
     @allure.step("Click the switch button 'Enabled/Disabled' to change project state")
     def click_switch_button(self):
         self.click_on(self.Locators.SWITCH_BUTTON)
