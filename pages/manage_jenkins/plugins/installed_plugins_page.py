@@ -1,6 +1,6 @@
 from pages.base_page import BasePage
 from selenium.webdriver.common.by import By
-from tests.manage_jenkins.data import Plugins as DATA
+from pages.manage_jenkins.data import Plugins as DATA
 
 
 class InstalledPluginsPage(BasePage):

@@ -70,9 +70,12 @@ class UIElementMixin:
         element = self.wait_for_element(locator)
         self.scroll_wait_click(element)
 
-    def click_elements(self, locator: tuple) -> "UIElementMixin":
-        clickable_elements = self.wait_for_elements(locator)
-        [self.scroll_into_view(el).wait_to_be_clickable(el).click() for el in clickable_elements]
+    def click_elements(self, locator: tuple[str, str]):
+        elements = self.wait_for_elements(locator)
+        for el in elements:
+            self.scroll_into_view(el)
+            self.wait_to_be_clickable(el)
+            el.click()
         return self
 
     def enter_text(self, locator, text) -> None:
@@ -108,20 +111,9 @@ class UIElementMixin:
         )
         return element
 
-    def navigate_to(self, page_class, *args):
-        with allure.step(f"Navigate to \"{page_class.__name__}\""):
-            self.logger.debug(f"Navigating to {page_class.__name__} with click on {args}")
-            if len(args) == 1:
-                locator = args[0]
-            elif len(args) > 1:
-                locator, args = args
-            else:
-                raise ValueError("Not enough arguments")
-            self.wait_to_be_clickable(locator).click()
-            if not isinstance(args, str):
-                return page_class(self.driver, *args).wait_for_url()
-            else:
-                return page_class(self.driver, args).wait_for_url()
+    def navigate_to(self, page_class, locator: tuple[str, str], *args):
+        self.wait_to_be_clickable(locator).click()
+        return page_class(self.driver, *args).wait_for_url()
 
     def get_visible_text(self, locator) -> str:
         return self.wait_to_be_visible(locator).text.strip()

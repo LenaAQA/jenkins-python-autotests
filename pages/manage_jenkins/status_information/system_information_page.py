@@ -2,7 +2,7 @@ import allure
 from typing import Self
 from selenium.webdriver.common.by import By
 from pages.manage_jenkins.manage_jenkins_page import ManageJenkinsPage
-from tests.manage_jenkins.data import SystemInformationData as SI
+from pages.manage_jenkins.data import SystemInformationData as SI
 
 
 class SystemInformationPage(ManageJenkinsPage):

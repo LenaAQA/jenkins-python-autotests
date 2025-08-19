@@ -1,3 +1,4 @@
+import allure
 from selenium.webdriver.common.by import By
 
 from pages.base_page import BasePage
@@ -12,8 +13,10 @@ class ErrorPageCopyFrom(BasePage):
         super().__init__(driver, timeout)
         self.url = self.base_url + "/view/all/createItem"
 
+    @allure.step("Get header error text")
     def get_header_error(self):
         return self.get_visible_text(self.Locators.HEADER_ERROR)
 
+    @allure.step("Get message error text")
     def get_message_error(self):
         return self.get_visible_text(self.Locators.MESSAGE_ERROR)

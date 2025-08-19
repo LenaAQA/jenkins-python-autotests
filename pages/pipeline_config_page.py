@@ -7,8 +7,6 @@ from pages.base_page import BasePage
 
 class PipelineConfigPage(BasePage):
     class Locators:
-        GENERAL_BUTTON = (By.ID, "general")
-        DESCRIPTION_FIELD = (By.NAME, 'description')
         SAVE_BUTTON = (By.NAME, "Submit")
         TRIGGERS_TITLE = (By.ID, "triggers")
         TRIGGERS_DESCRIPTION = (By.CSS_SELECTOR, "#triggers + .jenkins-section__description")
@@ -38,10 +36,6 @@ class PipelineConfigPage(BasePage):
     @allure.step("Click on the 'Build after other projects are built' trigger checkbox")
     def click_trigger_build_after_other_projects(self) -> "PipelineConfigPage":
         self.scroll_and_click(self.Locators.TRIGGER_BUILD_AFTER_OTHER_PROJECTS_LABEL)
-        return self
-
-    def add_description(self, text_for_description):
-        self.wait_for_element(self.Locators.DESCRIPTION_FIELD).send_keys(text_for_description)
         return self
 
     @allure.step("Scroll to the \"Build Triggers\" section title")
@@ -124,4 +118,3 @@ class PipelineConfigPage(BasePage):
     @allure.step("Check if all radio buttons are displayed")
     def get_trigger_radio_buttons_value(self) -> list[str]:
         return self.get_value_attributes_with_scroll(self.Locators.TRIGGER_RADIO_BUTTON)
-

@@ -6,10 +6,9 @@ from pages.base_page import BasePage
 
 class MultiConfigProjectConfigPage(BasePage):
     class Locators:
-        DESCRIPTION = (By.NAME, "description")
-        SUBMIT = (By.NAME, "Submit")
         SWITCH_BUTTON = (By.ID, "toggle-switch-enable-disable-project")
         SWITCH_INPUT = (By.ID, "enable-disable-project")
+        SUBMIT = (By.NAME, "Submit")
         SWITCH_TOOLTIP = (By.CLASS_NAME, "tippy-content")
         HELP_DISCARD_BUILDS = (By.XPATH, "//a[@tooltip='Help for feature: Discard old builds']")
 
@@ -23,9 +22,11 @@ class MultiConfigProjectConfigPage(BasePage):
         self.click_on(self.Locators.SWITCH_BUTTON)
         return self
 
+    @allure.step("Check if project is enabled")
     def is_project_enabled(self) -> bool:
         return self.is_element_selected(self.Locators.SWITCH_INPUT)
 
+    @allure.step("Check if project is disabled")
     def is_project_disabled(self) -> bool:
         return not self.is_project_enabled()
 
@@ -35,6 +36,7 @@ class MultiConfigProjectConfigPage(BasePage):
             self.click_on(self.Locators.SUBMIT)
             return MultiConfigProjectPage(self.driver, self.name).wait_for_url()
 
+    @allure.step("Get switch tooltip text")
     def get_switch_tooltip_text(self) -> str:
         self.hover_over_element(self.Locators.SWITCH_BUTTON)
         return self.get_visible_text(self.Locators.SWITCH_TOOLTIP)

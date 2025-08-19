@@ -1,15 +1,17 @@
 import allure
+
 from selenium.common import TimeoutException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.select import Select
 from selenium.webdriver.remote.webelement import WebElement
 from pages.base_page import BasePage
-from tests.manage_jenkins.data import ManageJenkinsData as MJ
+from pages.manage_jenkins.data import ManageJenkinsData as MJ
 
 
 class ManageJenkinsPage(BasePage):
     class Locator:
         PLUGINS = (By.XPATH, "//a[@href='pluginManager']/..")
+
         class StatusInformation:
             SYSTEM_INFORMATION = (By.XPATH, "//a[@href='systemInfo']/..")
             LOAD_STATISTICS = (By.XPATH, "//a[@href='load-statistics']/..")

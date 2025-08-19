@@ -9,11 +9,9 @@ from core.jenkins_utils import update_crumb
 
 class LoginPage(BasePage):
     class Locators:
-        SIGN_IN_FORM_HEADER = (By.XPATH, "//main//h1")
         LOGIN_FIELD = (By.ID, "j_username")
         PASSWORD_FIELD = (By.ID, "j_password")
         SUBMIT_BUTTON = (By.NAME, "Submit")
-        KEEP_ME_SIGNED_CHECKBOX = (By.XPATH, "//input[@type='checkbox']")
 
     def __init__(self, driver: WebDriver):
         super().__init__(driver)
